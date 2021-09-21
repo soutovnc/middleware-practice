@@ -24,7 +24,13 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 function checksCreateTodosUserAvailability(request, response, next) {
-  // Complete aqui
+  const { user } = request;
+
+  if (user.pro === false && user.todos.length >= 10) {
+    return response.status(403).json({ error: 'Limit exhausted'})
+  }
+
+  return next()
 }
 
 function checksTodoExists(request, response, next) {
